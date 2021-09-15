@@ -1,4 +1,4 @@
-package kleisli
+package logging.example1
 
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration._
@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 // This example makes use of context function type
 // See https://docs.scala-lang.org/scala3/reference/contextual/context-functions.html
 // https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html
-object TraceableExample {
+object TraceableExample1 {
 
   type Traceable[T] = CorrelationId ?=> T
 

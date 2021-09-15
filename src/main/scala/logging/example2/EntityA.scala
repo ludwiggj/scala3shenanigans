@@ -1,6 +1,6 @@
-package kleisli
+package logging.example2
 
-import kleisli.Entity.EntityBId
+import Types.EntityBId
 
 case class EntityA(entityBId: EntityBId) {
   def idOfB: EntityBId = entityBId

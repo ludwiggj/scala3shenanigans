@@ -1,23 +1,23 @@
 package logging.example2
 
 import cats.effect.IO
-import Types.{RIO, EntityB, EntityBId}
 import cats.effect.unsafe.implicits.global
+import logging.example2.Types.{EntityB, EntityBId, RIO}
 
 // see https://docs.scala-lang.org/scala3/reference/contextual/context-functions.html
 // and https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html
 
-object TraceableExample2:
-  given cid: CorrelationId = CorrelationId("XZUP-8890-1234-IOAW-2222")
-
+object TraceableExample:
+  given cid: CorrelationId = CorrelationId("XZUP-8890-1234-IOAW")
+  
   trait ServiceA:
-    def createA(a: EntityA)(using CorrelationId): RIO[EntityB]
+    def createA(a: EntityA): RIO[EntityB]
 
   trait ClientB:
-    def getB(bId: EntityBId)(using CorrelationId): RIO[EntityB]
+    def getB(bId: EntityBId): RIO[EntityB]
 
   private val clientB = new ClientB {
-    override def getB(bId: EntityBId)(using CorrelationId): RIO[EntityB] =
+    override def getB(bId: EntityBId): RIO[EntityB] =
       val value = s"($bId,EntityB)"
       for
         result <- IO.pure[EntityB](value)
@@ -26,7 +26,7 @@ object TraceableExample2:
   }
 
   case class ServiceC(clientB: ClientB) extends ServiceA {
-    def somePrivateBusinessLogic(entityB: EntityB)(using CorrelationId): RIO[EntityB] =
+    def somePrivateBusinessLogic(entityB: EntityB): RIO[EntityB] =
       for
         result <- IO.pure[EntityB]({
           val intermediate = entityB.split(",")
@@ -35,7 +35,7 @@ object TraceableExample2:
         _ <- Logger.info(s"somePrivateBusinessLogic [$entityB] Result [$result]")
       yield result
 
-    override def createA(a: EntityA)(using CorrelationId): RIO[EntityB] =
+    override def createA(a: EntityA): RIO[EntityB] =
       for
         entityB <- clientB.getB(a.idOfB)
         processed <- somePrivateBusinessLogic(entityB)

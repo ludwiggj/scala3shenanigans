@@ -13,7 +13,7 @@ object TraceableExample {
 
   type RIO[T] = Traceable[Future[T]]
 
-  def main(args: Array[String]): Unit = { 
+  def main(args: Array[String]): Unit = {
     given cid: CorrelationId = CorrelationId("correlationId-123")
 
     val future: RIO[User] = (for {
@@ -42,4 +42,6 @@ object TraceableExample {
 
   object Logger {
     def info(msg: String): RIO[Unit] =
-      Future.successful(println(s"[${summon[CorrelationId].value}] - $msg"))}
+      Future.successful(println(s"[${summon[CorrelationId].value}] - $msg"))
+  }
+}

@@ -39,18 +39,20 @@ object HelloWorld {
   def hello4(n: Int): IO[Unit] = IO.println("Hello") >> IO.println(s"World! (>>)($n)")
 
   def IOPrintlinesOnConsecutiveLines(): IO[Unit] = {
-    IO.println("Hi 1") >>
-      IO.println("Hi 2") >>
-      IO.println("Hi 3") >>
-      IO.println("Hi 4")
+    IO.println("Hi 1").>>(
+      IO.println("Hi 2").>>(
+      IO.println("Hi 3").>>(
+        IO.println("Hi 4")
+      )))
   }
 
   def IOPrintlinesWithInterspersedBlankLines(): IO[Unit] = {
-    IO.println("Hi 5") >>
+    IO.println("Hi 5").>>(
 
-    IO.println("Hi 6") >>
-      IO.println("Hi 7") >>
+    IO.println("Hi 6") >>(
+      IO.println("Hi 7").>>(
       IO.println("Hi 8")
+    )))
   }
 
   def main(args: Array[String]): Unit = {

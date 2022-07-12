@@ -9,7 +9,7 @@ import logging.example2.Types.{EntityB, EntityBId, RIO}
 
 object TraceableExample {
   given cid: CorrelationId = CorrelationId("XZUP-8890-1234-IOAW")
-  
+
   trait ServiceA {
     def createA(a: EntityA): RIO[EntityB]
   }
@@ -52,4 +52,6 @@ object TraceableExample {
   def main(args: Array[String]): Unit = {
     val rio = ServiceC(clientB).createA(EntityA("991"))
 
-    println(s"Result = ${rio.unsafeRunSync()}")}
+    println(s"Result = ${rio.unsafeRunSync()}")
+  }
+}

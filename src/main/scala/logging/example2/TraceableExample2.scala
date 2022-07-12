@@ -52,4 +52,6 @@ object TraceableExample2 {
   def main(args: Array[String]): Unit = {
     val rio = ServiceC(clientB).createA(EntityA("991"))
 
-    println(s"Result = ${rio.unsafeRunSync()}")}
+    println(s"Result = ${rio.unsafeRunSync()}")
+  }
+}

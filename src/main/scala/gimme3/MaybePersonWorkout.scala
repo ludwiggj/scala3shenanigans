@@ -21,7 +21,7 @@ object MaybePersonWorkout {
 
   def getMap(using size: Int): Map[String, Int] = Map("Alice" -> 5, "Bob" -> 2)
 
-  def main(args: Array[String]): Unit =
+  def main(args: Array[String]): Unit = {
     println(peeps)
     println(sortThings(peeps))
 
@@ -34,4 +34,5 @@ object MaybePersonWorkout {
 
     getMap("Alice")
     getMap(using 12)("Bob")
+  }
 }

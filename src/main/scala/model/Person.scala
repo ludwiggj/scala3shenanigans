@@ -7,9 +7,10 @@ case class Person(surname: String, name: String, age: Int) {
 object Person {
 
   // given doesn't have to be named
-  given personOrdering: Ordering[Person] with
+  given personOrdering: Ordering[Person] with {
     override def compare(x: Person, y: Person): Int =
       x.surname.compareTo(y.surname)
+  }
 
   val peeps = Seq(
     Person("Ludwig", "Matt", 19),
@@ -20,7 +21,7 @@ object Person {
   def listPeople(persons: Seq[Person])(using Ordering[Person]): Seq[Person] =
     persons.sorted
 
-  def main(args: Array[String]): Unit =
+  def main(args: Array[String]): Unit = {
     println(peeps)
     println(listPeople(peeps))
 
@@ -31,4 +32,5 @@ object Person {
     import scala.language.implicitConversions
 
     println("Alice".greet)
+  }
 }

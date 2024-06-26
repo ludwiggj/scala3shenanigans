@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
 )
 
 lazy val commonSettings = Seq(
-  scalaVersion := "3.2.1",
+  scalaVersion := "3.4.0",
   scalacOptions += "-noindent",
   scalacOptions += "-rewrite",
   scalacOptions += "-print-lines",
